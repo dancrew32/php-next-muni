@@ -35,7 +35,6 @@ $locations = $nm->vehicle_locations();
 
 # Instead of building options with magic setters,
 # just pass an array of options into NextMuni()
-
 $easy_predictions = new NextMuni(array(
 	'agency'  => 'sf-muni',
 	'route'   => '38L'
