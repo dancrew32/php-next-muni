@@ -20,6 +20,7 @@ class NextMuni {
 		$this->options = array_merge(array(
 			'agency'         => null,    # e.g. 'sf-muni'. Use agency_list() to find.
 			'route'          => null,    # routeTag e.g. '38L'.  Use route_list() to find.
+			'routes'         => array(), # e.g. array('N', '38L'). For messages()
 			'stop_id'        => null,    # e.g. 1111. Use route_config()->stop to find.
 			'stops'          => array(), # '$this->route|stopId' e.g. array('{$this->route}|3840', "{$this->route}|4001"). For predictions_multiple
 		), $options);
@@ -69,15 +70,7 @@ class NextMuni {
 	}
 
 	function predictions_multiple() {
-
-		# hack to match NextMuni api index-less "stops" keys
-		$stops = '';
-		$len   = count($this->stops) - 1;
-		foreach ($this->stops as $k => $stop) {
-			$last = $len == $k ? '' : '&stops=';
-			$stops .= "{$stop}{$last}";	
-		}
-
+		$stops = $this->build_repeating_params($this->stops, 'stops');
 		$api = array(
 			'command' => 'predictionsForMultiStops',
 			'a'       => $this->agency,
@@ -96,6 +89,15 @@ class NextMuni {
 		return $this->get($api);
 	}
 
+	function messages() {
+		$routes = $this->build_repeating_params($this->routes, 'r');
+		$api = array(
+			'a' => $this->agency,
+			'r' => $routes,
+		);
+		return $this->get($api);
+	}
+
 	function vehicle_locations() {
 		$api = array(
 			'command' => 'vehicleLocations',
@@ -104,6 +106,17 @@ class NextMuni {
 			't'       => time(),
 		);
 		return $this->get($api)->vehicle;
+	}
+
+	private function build_repeating_params($items, $key) {
+		# hack to match NextMuni api index-less "stops" keys
+		$out = '';
+		$len = count($items) - 1;
+		foreach ($items as $k => $item) {
+			$last = $len == $k ? '' : "&{$key}=";
+			$out .= "{$item}{$last}";	
+		}
+		return $out;
 	}
 
 	private function get($api) {

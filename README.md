@@ -29,6 +29,10 @@ $multi_predictions = $nm->predictions_multiple();
 # Schedule
 $schedule = $nm->schedule();
 
+# Messages
+$nm->routes = array('38L', 'N', 'J');
+$messages = $nm->messages();
+
 # Vehicle Locations
 $locations = $nm->vehicle_locations();
 
