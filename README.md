@@ -5,7 +5,7 @@
 ```php
 
 # Instantiate
-$nm = new NextMuni();
+$nm = new NextMuni;
 
 # Agencies
 $agencies = $nm->agency_list();
