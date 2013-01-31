@@ -38,7 +38,7 @@ class NextMuni {
 		$api = array(
 			'command' => 'agencyList',
 		);
-		return $this->get($api)->agency;
+		return $this->get($api);
 	}
 
 	function route_list() {
@@ -46,7 +46,7 @@ class NextMuni {
 			'command' => 'routeList',
 			'a'       => $this->agency,
 		);
-		return $this->get($api)->route;
+		return $this->get($api);
 	}
 
 	function route_config() {
@@ -55,7 +55,7 @@ class NextMuni {
 			'a'       => $this->agency,
 			'r'       => $this->route,
 		);
-		return $this->get($api)->route;
+		return $this->get($api);
 	}
 
 	function predictions() {
@@ -66,7 +66,7 @@ class NextMuni {
 			'r'        => $this->route,
 		);
 
-		return $this->get($api)->predictions;
+		return $this->get($api);
 	}
 
 	function predictions_multiple() {
@@ -78,7 +78,7 @@ class NextMuni {
 			'stops'   => $stops,
 		);
 
-		return $this->get($api)->predictions;
+		return $this->get($api);
 	}
 
 	function schedule() {
@@ -105,7 +105,7 @@ class NextMuni {
 			'r'       => $this->route,
 			't'       => time(),
 		);
-		return $this->get($api)->vehicle;
+		return $this->get($api);
 	}
 
 	private function build_repeating_params($items, $key) {
