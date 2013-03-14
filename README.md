@@ -41,8 +41,8 @@ $locations = $nm->vehicle_locations()->vehicle;
 # just pass an array of options into NextMuni()
 $easy_predictions = new NextMuni(array(
 	'agency'  => 'sf-muni',
-	'route'   => '38L'
-	'stop_id' => 5555
+	'route'   => '38L',
+	'stop_id' => 5555,
 ))->predictions()->predictions;
 
 ```
